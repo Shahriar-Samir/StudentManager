@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom"
 
 
 
@@ -5,9 +6,9 @@ function App() {
 
 
   return (
-    <main>
-      <h1>Dev Cluster</h1>
-    </main>
+    <>
+     <Outlet/> 
+    </>
   )
 }
 

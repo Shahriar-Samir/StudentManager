@@ -3,7 +3,7 @@ require('dotenv').config()
 const port = process.env.PORT || 5000
 const app = express()
 // middlewares
-app.use(json())
+app.use(express.json())
 // monogdb connection
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = process.env.MONGO_URI
@@ -20,14 +20,20 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
+
+    app.get('/devcluster',(req,res)=>{
+        return res.send('Dev Cluster ')
+    })
+
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
+
 app.listen(port,()=>{
     return `listening on port ${[port]}`
 })
