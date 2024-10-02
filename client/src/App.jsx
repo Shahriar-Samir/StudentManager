@@ -10,7 +10,7 @@ function App() {
   return (
     <>
     <Header/>
-    <main className="w-full h-[100vh] flex gap-5 mt-12">
+    <main className="w-11/12 h-[100vh] flex gap-5 mt-12 mx-auto">
     <Sidebar/>
      <Outlet/> 
     </main>
