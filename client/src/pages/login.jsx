@@ -12,7 +12,7 @@ const Login = () => {
     const login =async ()=>{
          try{
            const res = await dispatch(googleSingIn())
-            return res? navigate('/') : ''
+            return res? navigate('/addStudent') : ''
          }
         catch(err){
             console.log(err)
