@@ -3,6 +3,7 @@ import app from '../firebase/firebase';
 import { createContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { stopLoading } from '../Features/Loading/loadingSlice';
+import Loading from '../pages/Loading';
 
 export const AuthContext = createContext(null)
 
@@ -26,6 +27,9 @@ const AuthProvider = ({children}) => {
         // Signin with google handler
         const googleSignInHandler = ()=>{
             return signInWithPopup(auth,googleProvider)
+        }
+        if(loading){
+            return <Loading/>
         }
         
         return <AuthContext.Provider value={{googleSignInHandler}}>
