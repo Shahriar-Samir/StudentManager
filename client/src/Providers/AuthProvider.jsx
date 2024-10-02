@@ -7,12 +7,15 @@ export const AuthContext = createContext(null)
 const AuthProvider = ({children}) => {
         const auth = getAuth(app)
         const googleProvider = new GoogleAuthProvider()
+        // loading
+        // userInfo
 
-        const googleSignUp = ()=>{
+        // Signin with google handler
+        const googleSignInHandler = ()=>{
             return signInWithPopup(auth,googleProvider)
         }
         
-        return <AuthContext.Provider value={{googleSignUp}}>
+        return <AuthContext.Provider value={{googleSignInHandler}}>
             {children}
         </AuthContext.Provider>
 };
