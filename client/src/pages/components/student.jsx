@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteStudentData, updateStudentData } from '../../Features/Students/studentsSlice';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Student = ({student}) => {
     const {_id,firstName,middleName,lastName,classNum,roll} = student
@@ -31,14 +32,25 @@ export default Student;
 
 const DeleteModal = ({_id})=>{
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
- 
+    const deleteData = async ()=>{
+      try{
+        const res = await dispatch(deleteStudentData(_id))
+        if(res){
+          navigate(0)
+        }
+      } 
+      catch(err){
+          console.log(err)
+      }
+    }
 
     return <dialog id={`deleteModal${_id}`} className="modal">
       <div className="modal-box max-w-[350px]">
         <h3 className="font-bold text-base text-center">Are you sure you want to delete this item?</h3>
         <div className="modal-action justify-center gap-5">
-            <button onClick={()=>dispatch(deleteStudentData(_id))} className='btn bg-primeColor text-white hover:bg-[#a40a0a]'>Delete</button>
+            <button onClick={()=>deleteData()} className='btn bg-primeColor text-white hover:bg-[#a40a0a]'>Delete</button>
           <form method="dialog">
             <button className="btn">Cancel</button>
           </form>
@@ -76,6 +88,7 @@ const DetailsModal = ({student})=>{
 
 
 const EditModal = ({student})=>{
+  const navigate = useNavigate()
     const {_id,firstName,middleName,lastName,classNum,roll,division,addressLine1,addressLine2,landmark,city,pincode} = student
     const dispatch = useDispatch()
 
@@ -99,8 +112,8 @@ const EditModal = ({student})=>{
         const res = await dispatch(updateStudentData(studentData))
         console.log(res)
         if(res){
-          document.getElementById(`editModal${_id}`).style.display = 'hidden'
           toast.success('Student Data Updated!')
+          navigate(0)
         }
       }
       catch(err){
