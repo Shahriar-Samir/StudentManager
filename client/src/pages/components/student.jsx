@@ -81,7 +81,6 @@ const EditModal = ({student})=>{
 
     const handleUpdate = async (e)=>{
       e.preventDefault()
-      console.log('updated')
       const form = e.target
       const firstName = form.firstName.value
       const middleName = form.middleName.value
