@@ -9,7 +9,7 @@ const ManageStudents = () => {
 
 
     useEffect(()=>{
-         dispatch(getAllStudents())
+         dispatch(getAllStudents('noValue'))
     },[])
 
 
@@ -24,7 +24,7 @@ const ManageStudents = () => {
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <img src='/icons/searchbar.png' className='w-3 h-3'/>
                     </div>
-                    <input type="search" id="default-search" className="border block w-full ps-10 pe-3 py-3 text-sm  border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 text-black" placeholder="Search" required />
+                    <input onChange={(e)=>dispatch(getAllStudents(e.target.value))} type="search" id="default-search" className="border block w-full ps-10 pe-3 py-3 text-sm  border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 text-black" placeholder="Search" required />
                     
                 </div>
             </form>

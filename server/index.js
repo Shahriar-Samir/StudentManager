@@ -61,13 +61,24 @@ async function run() {
     })
 
     
-    app.get('/devcluster',(req,res)=>{
-        return res.send('Dev Cluster ')
-    })
+ 
 
     app.get('/students',async (req,res)=>{
-      const students = await studentCollection.find().toArray()
-      return res.status(200).send(students)
+      const {value} = req.query
+      if(value === 'noValue'){
+        const students = await studentCollection.find().toArray()
+        return res.status(200).send(students)
+      }
+      else{
+        const searchFilter = [
+              {  firstName: {$regex:new RegExp(value,'i')}},
+               { lastName: {$regex: new RegExp(value,'i')}},
+               {middleName: {$regex:new RegExp(value,'i')}}
+        ]
+        const students = await studentCollection.find({$or:searchFilter}).toArray()
+        return res.status(200).send(students)
+      }
+      
     })
 
     app.post('/addUser', async (req,res)=>{

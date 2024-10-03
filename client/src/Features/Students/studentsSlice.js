@@ -41,9 +41,9 @@ export const addStudent = (studentData)=> async ()=>{
     }
 }
 
-export const getAllStudents = ()=> async (dispatch)=>{
+export const getAllStudents = (value)=> async (dispatch)=>{
     try{
-        const res = await axiosSecure.get('/students')
+        const res = await axiosSecure.get('/students', {params:{value:value===''? 'noValue' : value}})
         dispatch(setStudentsData(res.data))
         return true
     }
