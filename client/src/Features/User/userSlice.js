@@ -28,6 +28,7 @@ export const googleSingIn = ()=> async (dispatch)=>{
         const {email,uid,displayName,photoURL} = res.user
         const userSaved = await axios.post(import.meta.env.VITE_API_LINK+'addUser', {email,uid,displayName,photoURL})
         if(userSaved.data.acknowledged){
+            axios.post(import.meta.env.VITE_API_LINK+'login',{uid,email},{withCredentials:true})
             dispatch(setUserData({email,uid,displayName,photoURL}))
             return {res:true}
         }
