@@ -60,7 +60,9 @@ async function run() {
         return res.clearCookie('user_token',{...cookieConfig,maxAge:0}).send()
     })
 
-    
+    app('/',(req,res)=>{
+        return res.send('Dev Cluster')
+    })
  
 
     app.get('/students',async (req,res)=>{
