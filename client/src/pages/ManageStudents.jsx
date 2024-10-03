@@ -21,8 +21,36 @@ const ManageStudents = () => {
             <button className='btn font-light bg-transparent border-[#647887]'>Print</button>
             <p className='font-medium'>25 June 2024  16:10</p>
             </section>
+
             <section>
-              
+            <div className="overflow-x-auto rounded-s-md rounded-e-md mt-8 shadow">
+  <table className="table text-sm">
+    {/* head */}
+    <thead>
+      <tr className='bg-primeColor text-white rounded-s-md rounded-e-md'>
+ 
+        <th className='text-sm px-10 pb-5 pt-3 w-1/3'>Name</th>
+        <th className='text-sm px-10 pb-5 pt-3 w-1/3'>Class</th>
+        <th className='text-sm px-10 pb-5 pt-3 w-1/3'>Roll No.</th>
+        <th className='text-sm  px-10 pb-5 pt-3'>View / Edit / Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {/* row 1 */}
+      <tr className="bg-[#fff6f5] font-medium">
+
+        <td className='px-10 pb-5 pt-3'>Cy Ganderton</td>
+        <td className='px-10 pb-5 pt-3'>12</td>
+        <td className='px-10 pb-5 pt-3'>01</td>
+        <td className='flex gap-7 px-10 pb-5 pt-3'>
+            <img className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='view' src='/icons/view.png'/>
+            <img  className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='edit' src='/icons/pen.png'/>
+            <img  className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='delete' src='/icons/trash.png'/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
             </section>
         </main>
     );
