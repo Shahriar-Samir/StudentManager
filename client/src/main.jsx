@@ -6,6 +6,7 @@ import routeHandler from './Routes/routeHandler.jsx'
 import { Provider } from 'react-redux'
 import store from './Store/store.js'
 import AuthProvider from './Providers/AuthProvider.jsx'
+import 'react-toastify/dist/ReactToastify.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

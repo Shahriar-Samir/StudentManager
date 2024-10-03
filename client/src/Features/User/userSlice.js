@@ -26,9 +26,9 @@ export const googleSingIn = ()=> async (dispatch)=>{
     try{
         const res = await signInWithPopup(auth,googleProvider)
         const {email,uid,displayName,photoURL} = res.user
-        const userSaved = await axios.post(import.meta.env.VITE_API_LINK+'addUser', {email,uid,displayName,photoURL})
+        const userSaved = await axios.post(import.meta.env.VITE_API_LINK+'/addUser', {email,uid,displayName,photoURL})
         if(userSaved.data.acknowledged){
-            axios.post(import.meta.env.VITE_API_LINK+'login',{uid,email},{withCredentials:true})
+            axios.post(import.meta.env.VITE_API_LINK+'/login',{uid,email},{withCredentials:true})
             dispatch(setUserData({email,uid,displayName,photoURL}))
             return {res:true}
         }
@@ -41,7 +41,7 @@ export const googleSingIn = ()=> async (dispatch)=>{
 export const logout = ()=> async (dispatch)=>{
     try{
         await signOut(auth)
-        axios.post(import.meta.env.VITE_API_LINK+'logout',{},{withCredentials:true})
+        axios.post(import.meta.env.VITE_API_LINK+'/logout',{},{withCredentials:true})
         dispatch(setUserData(null))
         return {res:true}
     }

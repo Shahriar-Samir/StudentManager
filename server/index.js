@@ -46,6 +46,7 @@ async function run() {
 
     const db = client.db('StudentManger')
     const userCollection = db.collection('Users')
+    const studentCollection = db.collection('Students')
 
     // JWT authentication
 
@@ -72,6 +73,17 @@ async function run() {
               return res.send({acknowledged:true})
           }
           const savedData = await userCollection.insertOne(userInfo)
+          return res.send(savedData)
+    })
+
+    app.post('/addStudent', async (req,res)=>{
+          const studentInfo = req.body
+          const {roll,classNum} = studentInfo
+          const findUser = await studentCollection.findOne({classNum,roll})
+          if(findUser){
+              return res.send({acknowledged:false})
+          }
+          const savedData = await studentCollection.insertOne(studentInfo)
           return res.send(savedData)
     })
 

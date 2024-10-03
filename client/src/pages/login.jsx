@@ -8,7 +8,6 @@ const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    console.log(user)
     const login =async ()=>{
          try{
            const res = await dispatch(googleSingIn())
