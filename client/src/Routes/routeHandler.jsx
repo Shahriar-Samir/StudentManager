@@ -1,9 +1,9 @@
 import {createBrowserRouter} from 'react-router-dom'
 import App from '../App';
 import Login from '../pages/login';
-import AddStudent from '../pages/AddStudent';
 import PrivateRoute from './PrivateRoute';
 import ManageStudents from '../pages/ManageStudents';
+import AddStudentC from '../pages/AddStudent';
 
 const routeHandler = createBrowserRouter([{
         path: '/',
@@ -15,7 +15,7 @@ const routeHandler = createBrowserRouter([{
             },
             {
                 path: '/addStudent',
-                element: <PrivateRoute><AddStudent/></PrivateRoute>,
+                element: <PrivateRoute><AddStudentC/></PrivateRoute>,
             },
             {
                 path: '/manageStudents',

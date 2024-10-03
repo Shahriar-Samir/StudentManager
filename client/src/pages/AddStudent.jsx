@@ -4,7 +4,7 @@ import {toast, ToastContainer} from 'react-toastify'
 import { addStudent } from '../Features/students/studentsSlice';
 
 
-const AddStudent = () => {
+const AddStudentC = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const presentTime = new Date()
@@ -91,4 +91,4 @@ const AddStudent = () => {
     );
 };
 
-export default AddStudent;
+export default AddStudentC;
