@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {toast, ToastContainer} from 'react-toastify'
-import { addStudent } from '../Features/students/studentsSlice';
+import { addStudent } from '../Features/Students/studentsSlice';
 
 
 const AddStudentC = () => {

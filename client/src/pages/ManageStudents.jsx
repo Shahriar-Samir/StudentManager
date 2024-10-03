@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Student from './components/student';
-import { getAllStudents } from '../Features/students/studentsSlice';
+import { getAllStudents } from '../Features/Students/studentsSlice';
 
 const ManageStudents = () => {
     const students = useSelector(state=> state.students.datalist)

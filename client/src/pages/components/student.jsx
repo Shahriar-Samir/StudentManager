@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteStudentData, updateStudentData } from '../../Features/students/studentsSlice';
+import { deleteStudentData, updateStudentData } from '../../Features/Students/studentsSlice';
 import { toast } from 'react-toastify';
 
 const Student = ({student}) => {
