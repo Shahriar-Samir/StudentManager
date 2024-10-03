@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteStudentData } from '../../Features/students/studentsSlice';
+import { deleteStudentData, updateStudentData } from '../../Features/students/studentsSlice';
 import { toast } from 'react-toastify';
 
 const Student = ({student}) => {
@@ -69,12 +69,45 @@ const DetailsModal = ({student})=>{
     </dialog>
 }
 
+
+
+
+
+
+
 const EditModal = ({student})=>{
     const {_id,firstName,middleName,lastName,classNum,roll,division,addressLine1,addressLine2,landmark,city,pincode} = student
+    const dispatch = useDispatch()
 
-
-    const handleFormSubmit = ()=>{}
-
+    const handleUpdate = async (e)=>{
+      e.preventDefault()
+      console.log('updated')
+      const form = e.target
+      const firstName = form.firstName.value
+      const middleName = form.middleName.value
+      const lastName = form.lastName.value
+      const classNum = form.class.value
+      const division = form.division.value
+      const roll = form.roll.value
+      const addressLine1 = form.addressLine1.value
+      const addressLine2 = form.addressLine2.value
+      const landmark = form.landmark.value
+      const city = form.city.value
+      const pincode = form.pincode.value
+      const image = form.image.value
+      const studentData = {firstName,middleName,lastName,classNum,division,roll,addressLine1,addressLine2,landmark,city,pincode,image,_id}
+      try{
+        const res = await dispatch(updateStudentData(studentData))
+        console.log(res)
+        if(res){
+          document.getElementById(`editModal${_id}`).style.display = 'hidden'
+          toast.success('Student Data Updated!')
+        }
+      }
+      catch(err){
+          toast.error('Something went wrong')
+      }
+    }
 
     return <dialog id={`editModal${_id}`} className="modal modal-bottom sm:modal-middle ">
       <div className="modal-box p-10 bg-primeColor">
@@ -82,7 +115,7 @@ const EditModal = ({student})=>{
       <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white">✕</button>
     </form>
     <h1 className='font-bold text-xl text-white'>Update Student</h1>
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleUpdate}>
                 <section className='grid grid-cols-2 gap-3 mt-6'>
                 <input type="text" placeholder="First Name" defaultValue={firstName} name='firstName' className="input input-bordered" required />
                 <input type="text" placeholder="Middle Name" name='middleName' defaultValue={middleName} className="input input-bordered" required />
@@ -123,7 +156,7 @@ const EditModal = ({student})=>{
                 <input type="file" name='image' className="" />
                 </div>
                 <section className='w-full grid grid-cols-3 gap-3 mt-3 '>
-                <button className='btn text-white bg-primeColor'>Update Student</button>
+                <button className='btn text-white bg-primeColor !p-2'>Update Student</button>
                 </section>
             </form>
   </div>

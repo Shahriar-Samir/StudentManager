@@ -92,6 +92,30 @@ async function run() {
           return res.send(savedData)
     })
 
+    app.put('/updateStudent', async (req,res)=>{
+      const updateInfo = req.body
+      const options = {upsert:true}
+      const newInfo = {
+        $set:{
+            firstName: updateInfo.firstName,
+            middleName: updateInfo.middleName,
+            lastName: updateInfo.lastName,
+            classNum: updateInfo.classNum,
+            division: updateInfo.division,
+            roll: updateInfo.roll,
+            addressLine1: updateInfo.addressLine1,
+            addressLine2: updateInfo.addressLine2,
+            landmark: updateInfo.landmark,
+            city: updateInfo.city,
+            pinCode: updateInfo.pincode,
+            image: updateInfo.image,
+        }
+      }
+
+      const updatedData = await studentCollection.updateOne({_id:new ObjectId(updateInfo._id)},newInfo,options)
+      return res.send(updatedData)
+    })
+
     app.delete('/deleteStudent/:id', async (req,res)=>{
       const {id} = req.params
       const _id = new ObjectId(id)
