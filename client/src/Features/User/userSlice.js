@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup} from 'firebase/auth'
+import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut} from 'firebase/auth'
 import app from '../../firebase/firebase';
 
 const auth = getAuth(app)
@@ -26,6 +26,17 @@ export const googleSingIn = ()=> async (dispatch)=>{
         const res = await signInWithPopup(auth,googleProvider)
         const {email,uid,} = res.user
         dispatch(setUserData({email,uid}))
+        return {res:true}
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+export const logout = ()=> async (dispatch)=>{
+    try{
+        await signOut(auth)
+        dispatch(setUserData(null))
         return {res:true}
     }
     catch(err){
