@@ -28,7 +28,7 @@ const cookieConfig = {
 
 
 // monogdb connection
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = process.env.MONGO_URI
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -91,6 +91,13 @@ async function run() {
           const savedData = await studentCollection.insertOne(studentInfo)
           return res.send(savedData)
     })
+
+    app.delete('/deleteStudent/:id', async (req,res)=>{
+      const {id} = req.params
+      const _id = new ObjectId(id)
+      const deletedData = await studentCollection.deleteOne({_id})
+      return res.send(deletedData)
+})
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");

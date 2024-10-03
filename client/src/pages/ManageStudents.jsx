@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllStudents } from '../Features/students/studentsSlice';
+import Student from './components/student';
 
 const ManageStudents = () => {
     const students = useSelector(state=> state.students.datalist)
@@ -49,17 +50,7 @@ const ManageStudents = () => {
     <tbody>
       {
         students.map(student=>{
-          const {_id,firstName,middleName,lastName,classNum,roll} = student
-          return <tr key={_id} className="bg-[#fff6f5] font-medium">
-          <td className='px-10 pb-5 pt-3'>{firstName} {middleName} {lastName}</td>
-          <td className='px-10 pb-5 pt-3'>{classNum<10? `0${classNum}`:classNum}</td>
-          <td className='px-10 pb-5 pt-3'>{roll<10? `0${roll}`:roll}</td>
-          <td className='flex gap-7 px-10 pb-5 pt-3'>
-              <img className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='view' src='/icons/view.png'/>
-              <img  className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='edit' src='/icons/pen.png'/>
-              <img  className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='delete' src='/icons/trash.png'/>
-          </td>
-        </tr>
+          return <Student student={student}/>
         })
       }
     </tbody>

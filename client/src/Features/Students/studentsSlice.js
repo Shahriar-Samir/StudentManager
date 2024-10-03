@@ -10,10 +10,13 @@ const studentsSlice = createSlice({
         setStudentsData: (state,action)=>{
             state.datalist = action.payload
         },
+        deleteStudent: (state,action)=>{
+              state.datalist = state.datalist.filter(student=> student._id !== action.payload)
+        }
     } 
 })
 
-export const {setStudentsData} = studentsSlice.actions
+export const {setStudentsData,deleteStudent} = studentsSlice.actions
 export default studentsSlice.reducer
 
 
@@ -32,6 +35,18 @@ export const getAllStudents = ()=> async (dispatch)=>{
         const res = await axiosSecure.get('/students')
         dispatch(setStudentsData(res.data))
         return true
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+
+export const deleteStudentData = (_id)=> async (dispatch)=>{
+    try{
+        const res = await axiosSecure.delete(`/deleteStudent/${_id}`)
+        dispatch(deleteStudent(_id))
+        return res.data
     }
     catch(err){
         console.log(err)
