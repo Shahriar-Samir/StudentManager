@@ -14,7 +14,7 @@ const AddStudent = () => {
                 <input type="password" placeholder="password" className="input input-bordered" required />
                 <input type="password" placeholder="password" className="input input-bordered" required />
                 </section>
-                <section className='grid gap-3 mt-3'>
+                <section className='grid gap-3 mt-11'>
                 <div className='grid grid-cols-2 gap-3'>
                 <input type="password" placeholder="password" className="input input-bordered" required />
                 <input type="password" placeholder="password" className="input input-bordered" required />
