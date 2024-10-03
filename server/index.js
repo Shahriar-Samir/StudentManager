@@ -64,18 +64,28 @@ async function run() {
  
 
     app.get('/students',async (req,res)=>{
-      const {value} = req.query
-      if(value === 'noValue'){
+      const {value,filter} = req.query
+      if(value === 'noValue' && filter === 'noFilter'){
         const students = await studentCollection.find().toArray()
         return res.status(200).send(students)
       }
-      else{
+      if(value!=='noValue'){
         const searchFilter = [
               {  firstName: {$regex:new RegExp(value,'i')}},
                { lastName: {$regex: new RegExp(value,'i')}},
                {middleName: {$regex:new RegExp(value,'i')}}
         ]
         const students = await studentCollection.find({$or:searchFilter}).toArray()
+        return res.status(200).send(students)
+      }
+      if(filter!=='noFilter'){
+        const divisionsFilter = [];
+        if (filter.A === 'true') divisionsFilter.push('A');
+        if (filter.B === 'true') divisionsFilter.push('B');
+        if (filter.C === 'true') divisionsFilter.push('C');
+        if (filter.D === 'true') divisionsFilter.push('D');
+        if (filter.E === 'true') divisionsFilter.push('E');
+        const students = await studentCollection.find({division:{$in:divisionsFilter}}).toArray()
         return res.status(200).send(students)
       }
       
