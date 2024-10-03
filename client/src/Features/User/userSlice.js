@@ -41,6 +41,7 @@ export const googleSingIn = ()=> async (dispatch)=>{
 export const logout = ()=> async (dispatch)=>{
     try{
         await signOut(auth)
+        axios.post(import.meta.env.VITE_API_LINK+'logout',{},{withCredentials:true})
         dispatch(setUserData(null))
         return {res:true}
     }

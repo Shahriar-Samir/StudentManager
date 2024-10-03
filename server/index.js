@@ -3,7 +3,8 @@ require('dotenv').config()
 const port = process.env.PORT || 5000
 const app = express()
 const cors = require('cors');
-
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 
 // middlewares
 
@@ -11,10 +12,20 @@ const allowedOrigin = process.env.NODE_ENV === 'production' ?
                       process.env.CORS_ORIGIN_PRODUCTION :
                       process.env.CORS_ORIGIN_DEVELOPMENT
 
-app.use(express.json())
 app.use(cors({
-    origins: [allowedOrigin]
+    origin: [allowedOrigin],
+    credentials:true
 }))
+app.use(express.json())
+app.use(cookieParser())
+
+// cookies config
+const cookieConfig = {
+  httpOnly:true,
+  secure:process.env.NODE_ENV==='development',
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+}
+
 
 // monogdb connection
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -36,6 +47,19 @@ async function run() {
     const db = client.db('StudentManger')
     const userCollection = db.collection('Users')
 
+    // JWT authentication
+
+    app.post('/login',(req,res)=>{
+        const {uid,email} = req.body
+        const token = jwt.sign({uid,email},process.env.TOKEN_SECRET,{expiresIn: '6h'})
+        return res.cookie('user_token',token,cookieConfig).send()
+    })
+
+    app.post('/logout',(req,res)=>{
+        return res.clearCookie('user_token',{...cookieConfig,maxAge:0}).send()
+    })
+
+    
     app.get('/devcluster',(req,res)=>{
         return res.send('Dev Cluster ')
     })
