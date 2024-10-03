@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
-import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut} from 'firebase/auth'
+import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth'
 import app from '../../firebase/firebase';
+import axios from 'axios'
 
 const auth = getAuth(app)
 const googleProvider = new GoogleAuthProvider()
@@ -24,9 +25,12 @@ export const {setUserData} = userSlice.actions
 export const googleSingIn = ()=> async (dispatch)=>{
     try{
         const res = await signInWithPopup(auth,googleProvider)
-        const {email,uid,} = res.user
-        dispatch(setUserData({email,uid}))
-        return {res:true}
+        const {email,uid,displayName,photoURL} = res.user
+        const userSaved = await axios.post(import.meta.env.VITE_API_LINK+'addUser', {email,uid,displayName,photoURL})
+        if(userSaved.data.acknowledged){
+            dispatch(setUserData({email,uid,displayName,photoURL}))
+            return {res:true}
+        }
     }
     catch(err){
         console.log(err)
