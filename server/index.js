@@ -65,6 +65,11 @@ async function run() {
         return res.send('Dev Cluster ')
     })
 
+    app.get('/students',async (req,res)=>{
+      const students = await studentCollection.find().toArray()
+      return res.status(200).send(students)
+    })
+
     app.post('/addUser', async (req,res)=>{
           const userInfo = req.body
           const {uid} = userInfo
@@ -79,8 +84,8 @@ async function run() {
     app.post('/addStudent', async (req,res)=>{
           const studentInfo = req.body
           const {roll,classNum} = studentInfo
-          const findUser = await studentCollection.findOne({classNum,roll})
-          if(findUser){
+          const findStudent = await studentCollection.findOne({classNum,roll})
+          if(findStudent){
               return res.send({acknowledged:false})
           }
           const savedData = await studentCollection.insertOne(studentInfo)

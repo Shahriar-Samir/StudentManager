@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllStudents } from '../Features/students/studentsSlice';
 
 const ManageStudents = () => {
+    const students = useSelector(state=> state.students.datalist)
+    const dispatch = useDispatch()
+
+
+    useEffect(()=>{
+         dispatch(getAllStudents())
+    },[])
+
+
     return (
         <main className='w-9/12 h-full'>
             
@@ -36,18 +47,21 @@ const ManageStudents = () => {
       </tr>
     </thead>
     <tbody>
-      {/* row 1 */}
-      <tr className="bg-[#fff6f5] font-medium">
-
-        <td className='px-10 pb-5 pt-3'>Cy Ganderton</td>
-        <td className='px-10 pb-5 pt-3'>12</td>
-        <td className='px-10 pb-5 pt-3'>01</td>
-        <td className='flex gap-7 px-10 pb-5 pt-3'>
-            <img className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='view' src='/icons/view.png'/>
-            <img  className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='edit' src='/icons/pen.png'/>
-            <img  className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='delete' src='/icons/trash.png'/>
-        </td>
-      </tr>
+      {
+        students.map(student=>{
+          const {_id,firstName,middleName,lastName,classNum,roll} = student
+          return <tr key={_id} className="bg-[#fff6f5] font-medium">
+          <td className='px-10 pb-5 pt-3'>{firstName} {middleName} {lastName}</td>
+          <td className='px-10 pb-5 pt-3'>{classNum<10? `0${classNum}`:classNum}</td>
+          <td className='px-10 pb-5 pt-3'>{roll<10? `0${roll}`:roll}</td>
+          <td className='flex gap-7 px-10 pb-5 pt-3'>
+              <img className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='view' src='/icons/view.png'/>
+              <img  className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='edit' src='/icons/pen.png'/>
+              <img  className='w-[24px] h-[24px] hover:border hover:p-1 transition-all' role='button' alt='delete' src='/icons/trash.png'/>
+          </td>
+        </tr>
+        })
+      }
     </tbody>
   </table>
 </div>

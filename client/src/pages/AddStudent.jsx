@@ -1,12 +1,14 @@
-import React from 'react';
-import useAxiosSecure from '../hooks/useAxiosSecure'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {toast, ToastContainer} from 'react-toastify'
+import { addStudent } from '../Features/students/studentsSlice';
+
 
 const AddStudent = () => {
-    const axiosSecure = useAxiosSecure()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
-    
+
+
     const handleFormSubmit =async (e)=>{
             e.preventDefault()
             const form = e.target
@@ -24,8 +26,8 @@ const AddStudent = () => {
             const image = form.image.value
             const studentData = {firstName,middleName,lastName,classNum,division,roll,addressLine1,addressLine2,landmark,city,pincode,image}
             try{
-               const res = await axiosSecure.post('/addStudent',studentData)
-               if(res.data.acknowledged){
+               const res = await dispatch(addStudent(studentData)) 
+               if(res){
                     navigate('/manageStudents')
                }
                else{
