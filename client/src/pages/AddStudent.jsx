@@ -7,6 +7,7 @@ import { addStudent } from '../Features/students/studentsSlice';
 const AddStudent = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const presentTime = new Date()
 
 
     const handleFormSubmit =async (e)=>{
@@ -43,7 +44,10 @@ const AddStudent = () => {
     return (
         <main className='w-9/12 h-full'>
             <ToastContainer />
+            <div className='flex items-center justify-between'>
             <h1 className='font-bold'>Add Student</h1>
+            <p className='font-medium text-sm'>{presentTime.toLocaleString()}</p>
+            </div>
             <form onSubmit={handleFormSubmit}>
                 <section className='grid grid-cols-3 gap-3 mt-6'>
                 <input type="text" placeholder="First Name" name='firstName' className="input input-bordered" required />
